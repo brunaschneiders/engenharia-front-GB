@@ -5,6 +5,7 @@ import {
   Box,
   Checkbox,
   Fab,
+  Typography,
 } from "@mui/material";
 import { useCalendar } from "../../providers/CalendarProvider/useCalendar";
 import { Event } from "../../types";
@@ -74,19 +75,22 @@ const ActivityCard: React.FC<ActivityCardProps> = ({ event }) => {
 export const ActivitiesList = () => {
   const { selectedDate, events } = useCalendar();
 
+  const currentActivities = events.filter(
+    (event) => event.date.toDateString() === selectedDate?.toDateString()
+  );
+
   return (
-    events.length > 0 &&
-    selectedDate && (
-      <Box display="flex" flexDirection="column">
-        <p> Data selecionada: {selectedDate?.toLocaleDateString()} </p>
-        {events.map((event) =>
-          event.date.toDateString() === selectedDate.toDateString() ? (
-            <ActivityCard event={event} />
-          ) : (
-            "Sem atividades para esta data."
-          )
-        )}
-      </Box>
-    )
+    <Box display="flex" flexDirection="column">
+      <Typography variant="h5" mb="24px">
+        Data selecionada: {selectedDate?.toLocaleDateString()}{" "}
+      </Typography>
+      {selectedDate && currentActivities.length > 0 ? (
+        currentActivities.map((event) => (
+          <ActivityCard key={event.id} event={event} />
+        ))
+      ) : (
+        <Typography> Sem atividades nesta data </Typography>
+      )}
+    </Box>
   );
 };

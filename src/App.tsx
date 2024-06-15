@@ -17,7 +17,7 @@ const App: React.FC = () => {
         sx={{ flexDirection: { xs: "column", md: "row" } }}
       >
         <Calendar />
-        <Box display="flex" flexDirection="column">
+        <Box display="flex" flexDirection="column" gap="24px" flex="1">
           <ActivitiesList />
           {selectedDate && <CreateActivity />}
         </Box>
