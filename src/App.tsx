@@ -11,7 +11,6 @@ const App: React.FC = () => {
 
   return (
     <div className="app">
-      <h1> GeeksforGeeks Calendar Application </h1>
       <Box
         display="flex"
         gap="24px"
@@ -19,8 +18,8 @@ const App: React.FC = () => {
       >
         <Calendar />
         <Box display="flex" flexDirection="column">
-          {selectedDate && <CreateActivity />}
           <ActivitiesList />
+          {selectedDate && <CreateActivity />}
         </Box>
       </Box>
     </div>

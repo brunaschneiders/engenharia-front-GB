@@ -3,12 +3,13 @@ import {
   AccordionDetails,
   AccordionSummary,
   Box,
+  Checkbox,
   Fab,
 } from "@mui/material";
 import { useCalendar } from "../../providers/CalendarProvider/useCalendar";
 import { Event } from "../../types";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { Delete, Edit } from "@mui/icons-material";
+import { DeleteOutline, EditOutlined } from "@mui/icons-material";
 
 type ActivityCardProps = {
   event: Event;
@@ -30,7 +31,10 @@ const ActivityCard: React.FC<ActivityCardProps> = ({ event }) => {
           justifyContent="space-between"
           alignItems="center"
         >
-          {event.title}
+          <Box>
+            <Checkbox color="primary" />
+            {event.title}
+          </Box>
 
           <Box>
             <Fab
@@ -42,7 +46,7 @@ const ActivityCard: React.FC<ActivityCardProps> = ({ event }) => {
                 handleUpdateEvent(event.id, prompt("ENTER NEW TITLE") || "");
               }}
             >
-              <Edit />
+              <EditOutlined />
             </Fab>
 
             <Fab
@@ -54,7 +58,7 @@ const ActivityCard: React.FC<ActivityCardProps> = ({ event }) => {
                 handleDeleteEvent(event.id);
               }}
             >
-              <Delete />
+              <DeleteOutline />
             </Fab>
           </Box>
         </Box>
