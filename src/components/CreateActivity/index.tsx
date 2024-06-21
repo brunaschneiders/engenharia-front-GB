@@ -7,11 +7,13 @@ import useCreateActivity from "../../hooks/useCreateActivity";
 import { Activity } from "../../types";
 import dayjs from "dayjs";
 import { Snackbar } from "../Snackbar";
+import { useCalendar } from "../../providers/CalendarProvider/useCalendar";
 
 type FormValues = Activity;
 
 export const CreateActivity = () => {
   const { mutate: createActivity, isLoading } = useCreateActivity();
+  const { selectedDate } = useCalendar();
   const {
     control,
     handleSubmit,
@@ -21,6 +23,7 @@ export const CreateActivity = () => {
     defaultValues: {
       name: "",
       description: "",
+      date: selectedDate ? selectedDate : undefined,
     },
   });
 

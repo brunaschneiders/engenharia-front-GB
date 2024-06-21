@@ -5,7 +5,8 @@ import React, {
   useMemo,
   useState,
 } from "react";
-import { Event } from "../../types";
+import { Activity } from "../../types";
+import useFetchActivities from "../../hooks/useGetActivities";
 
 type ChildrenType = {
   children: ReactNode;
@@ -13,11 +14,10 @@ type ChildrenType = {
 
 export type CalendarContextType = {
   selectedDate: Date | null;
-  events: Event[];
+  activities: Activity[];
+  currentActivities: Activity[];
+  isLoadingActivities: boolean;
   handleSelectDate: (date: Date) => void;
-  handleUpdateEvent: (eventId: number, newName: string) => void;
-  handleDeleteEvent: (eventId: number) => void;
-  handleCreateEvent: (eventName: string) => void;
 };
 
 export const CalendarContext = createContext<CalendarContextType | undefined>(
@@ -25,70 +25,33 @@ export const CalendarContext = createContext<CalendarContextType | undefined>(
 );
 
 export const CalendarProvider: React.FC<ChildrenType> = ({ children }) => {
-  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
-  const [events, setEvents] = useState<Event[]>([]);
+  const { data: activities = [], isLoading } = useFetchActivities();
+
+  const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
+
+  const currentActivities = useMemo(() => {
+    if (selectedDate) {
+      return activities.filter(
+        (activity) =>
+          new Date(activity.date).toDateString() === selectedDate.toDateString()
+      );
+    }
+    return [];
+  }, [activities, selectedDate]);
 
   const handleSelectDate = useCallback((date: Date) => {
     setSelectedDate(date);
   }, []);
 
-  const handleUpdateEvent = useCallback(
-    (eventId: number, newName: string) => {
-      const updated_Events = events.map((event) => {
-        if (event.id === eventId) {
-          return {
-            ...event,
-            title: newName,
-          };
-        }
-        return event;
-      });
-      setEvents(updated_Events);
-    },
-    [events]
-  );
-
-  const handleDeleteEvent = useCallback(
-    (eventId: number) => {
-      const updated_Events = events.filter((event) => event.id !== eventId);
-      setEvents(updated_Events);
-    },
-    [events]
-  );
-
-  const handleCreateEvent = useCallback(
-    (eventName: string) => {
-      if (selectedDate && eventName) {
-        const newEvent: Event = {
-          id: new Date().getTime(),
-          date: selectedDate,
-          title: eventName,
-        };
-        setEvents([...events, newEvent]);
-        setSelectedDate(null);
-        setSelectedDate(newEvent.date);
-      }
-    },
-    [events, selectedDate]
-  );
-
   const contextValue: CalendarContextType = useMemo(
     () => ({
       selectedDate,
-      events,
+      activities,
+      currentActivities,
+      isLoadingActivities: isLoading,
       handleSelectDate,
-      handleUpdateEvent,
-      handleDeleteEvent,
-      handleCreateEvent,
     }),
-    [
-      selectedDate,
-      events,
-      handleSelectDate,
-      handleUpdateEvent,
-      handleDeleteEvent,
-      handleCreateEvent,
-    ]
+    [selectedDate, activities, currentActivities, isLoading, handleSelectDate]
   );
 
   return (

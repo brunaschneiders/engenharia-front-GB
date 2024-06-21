@@ -8,17 +8,13 @@ import {
   Typography,
 } from "@mui/material";
 import { useCalendar } from "../../providers/CalendarProvider/useCalendar";
-import { Event } from "../../types";
+import { Activity } from "../../types";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { DeleteOutline, EditOutlined } from "@mui/icons-material";
 
-type ActivityCardProps = {
-  event: Event;
-};
+type ActivityCardProps = Activity;
 
-const ActivityCard: React.FC<ActivityCardProps> = ({ event }) => {
-  const { handleUpdateEvent, handleDeleteEvent } = useCalendar();
-
+const ActivityCard: React.FC<ActivityCardProps> = ({ name, description }) => {
   return (
     <Accordion>
       <AccordionSummary
@@ -34,7 +30,7 @@ const ActivityCard: React.FC<ActivityCardProps> = ({ event }) => {
         >
           <Box>
             <Checkbox color="primary" />
-            {event.title}
+            {name}
           </Box>
 
           <Box>
@@ -44,7 +40,6 @@ const ActivityCard: React.FC<ActivityCardProps> = ({ event }) => {
               sx={{ background: "transparent", boxShadow: "none" }}
               onClick={(e) => {
                 e.stopPropagation();
-                handleUpdateEvent(event.id, prompt("ENTER NEW TITLE") || "");
               }}
             >
               <EditOutlined />
@@ -56,7 +51,6 @@ const ActivityCard: React.FC<ActivityCardProps> = ({ event }) => {
               sx={{ background: "transparent", boxShadow: "none" }}
               onClick={(e) => {
                 e.stopPropagation();
-                handleDeleteEvent(event.id);
               }}
             >
               <DeleteOutline />
@@ -64,29 +58,24 @@ const ActivityCard: React.FC<ActivityCardProps> = ({ event }) => {
           </Box>
         </Box>
       </AccordionSummary>
-      <AccordionDetails>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-        malesuada lacus ex, sit amet blandit leo lobortis eget.
+      <AccordionDetails sx={{ textAlign: "initial" }}>
+        {description}
       </AccordionDetails>
     </Accordion>
   );
 };
 
 export const ActivitiesList = () => {
-  const { selectedDate, events } = useCalendar();
-
-  const currentActivities = events.filter(
-    (event) => event.date.toDateString() === selectedDate?.toDateString()
-  );
+  const { selectedDate, currentActivities } = useCalendar();
 
   return (
     <Box display="flex" flexDirection="column">
       <Typography variant="h5" mb="24px">
-        Data selecionada: {selectedDate?.toLocaleDateString()}{" "}
+        Data selecionada: {selectedDate?.toLocaleDateString("pt-BR")}{" "}
       </Typography>
       {selectedDate && currentActivities.length > 0 ? (
-        currentActivities.map((event) => (
-          <ActivityCard key={event.id} event={event} />
+        currentActivities.map((activity) => (
+          <ActivityCard key={activity.id} {...activity} />
         ))
       ) : (
         <Typography> Sem atividades nesta data </Typography>
