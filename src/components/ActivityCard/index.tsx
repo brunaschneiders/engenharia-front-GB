@@ -5,6 +5,7 @@ import {
   Box,
   Checkbox,
   Fab,
+  Typography,
 } from "@mui/material";
 import { Activity } from "../../types";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
@@ -29,6 +30,10 @@ export const ActivityCard: React.FC<ActivityCardProps> = (activity) => {
     deleteActivity(id);
   };
 
+  const time = `${activity.date.getHours()}:${
+    activity.date.getMinutes() === 0 ? "00" : activity.date.getMinutes()
+  }`;
+
   return (
     <Accordion>
       <AccordionSummary
@@ -42,7 +47,7 @@ export const ActivityCard: React.FC<ActivityCardProps> = (activity) => {
           justifyContent="space-between"
           alignItems="center"
         >
-          <Box>
+          <Box fontSize="18px">
             <Checkbox
               color="primary"
               checked={finished}
@@ -53,6 +58,10 @@ export const ActivityCard: React.FC<ActivityCardProps> = (activity) => {
           </Box>
 
           <Box>
+            <Typography mr="18px" display="inline-block" fontSize="18px">
+              {time}
+            </Typography>
+
             <EditActivity activity={activity} />
 
             <Fab
