@@ -10,18 +10,15 @@ import {
 import { useCalendar } from "../../providers/CalendarProvider/useCalendar";
 import { Activity } from "../../types";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { DeleteOutline, EditOutlined } from "@mui/icons-material";
+import { DeleteOutline } from "@mui/icons-material";
 import useCheckActivity from "../../hooks/useCheckActivity";
 import useDeleteActivity from "../../hooks/useDeleteActivity";
+import { EditActivity } from "../EditActivity";
 
 type ActivityCardProps = Activity;
 
-const ActivityCard: React.FC<ActivityCardProps> = ({
-  id,
-  name,
-  description,
-  finished,
-}) => {
+const ActivityCard: React.FC<ActivityCardProps> = (activity) => {
+  const { id, name, description, finished } = activity;
   const { mutate: checkActivity } = useCheckActivity();
   const { mutate: deleteActivity } = useDeleteActivity();
 
@@ -58,16 +55,7 @@ const ActivityCard: React.FC<ActivityCardProps> = ({
           </Box>
 
           <Box>
-            <Fab
-              aria-label="add"
-              size="small"
-              sx={{ background: "transparent", boxShadow: "none" }}
-              onClick={(e) => {
-                e.stopPropagation();
-              }}
-            >
-              <EditOutlined />
-            </Fab>
+            <EditActivity activity={activity} />
 
             <Fab
               aria-label="add"
