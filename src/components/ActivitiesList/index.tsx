@@ -11,10 +11,22 @@ import { useCalendar } from "../../providers/CalendarProvider/useCalendar";
 import { Activity } from "../../types";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { DeleteOutline, EditOutlined } from "@mui/icons-material";
+import useCheckActivity from "../../hooks/useCheckActivity";
 
 type ActivityCardProps = Activity;
 
-const ActivityCard: React.FC<ActivityCardProps> = ({ name, description }) => {
+const ActivityCard: React.FC<ActivityCardProps> = ({
+  id,
+  name,
+  description,
+  finished,
+}) => {
+  const { mutate: checkActivity } = useCheckActivity();
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    checkActivity({ id, finished: e.target.checked });
+  };
+
   return (
     <Accordion>
       <AccordionSummary
@@ -29,7 +41,12 @@ const ActivityCard: React.FC<ActivityCardProps> = ({ name, description }) => {
           alignItems="center"
         >
           <Box>
-            <Checkbox color="primary" />
+            <Checkbox
+              color="primary"
+              checked={finished}
+              onChange={handleChange}
+              onClick={(e) => e.stopPropagation()}
+            />
             {name}
           </Box>
 
