@@ -12,6 +12,7 @@ import { Activity } from "../../types";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { DeleteOutline, EditOutlined } from "@mui/icons-material";
 import useCheckActivity from "../../hooks/useCheckActivity";
+import useDeleteActivity from "../../hooks/useDeleteActivity";
 
 type ActivityCardProps = Activity;
 
@@ -22,9 +23,15 @@ const ActivityCard: React.FC<ActivityCardProps> = ({
   finished,
 }) => {
   const { mutate: checkActivity } = useCheckActivity();
+  const { mutate: deleteActivity } = useDeleteActivity();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     checkActivity({ id, finished: e.target.checked });
+  };
+
+  const handleDelete: React.MouseEventHandler<HTMLButtonElement> = (e) => {
+    e.stopPropagation();
+    deleteActivity(id);
   };
 
   return (
@@ -66,9 +73,7 @@ const ActivityCard: React.FC<ActivityCardProps> = ({
               aria-label="add"
               size="small"
               sx={{ background: "transparent", boxShadow: "none" }}
-              onClick={(e) => {
-                e.stopPropagation();
-              }}
+              onClick={handleDelete}
             >
               <DeleteOutline />
             </Fab>
