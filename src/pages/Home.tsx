@@ -5,6 +5,7 @@ import { ActivitiesList, CreateActivity, Calendar } from "../components";
 import { useCalendar } from "../providers/CalendarProvider/useCalendar";
 import { Box } from "@mui/material";
 import { TopBar } from "../components/Topbar";
+import { isNurse } from "../utils";
 
 export const Home: React.FC = () => {
   const { selectedDate, isLoadingActivities } = useCalendar();
@@ -31,7 +32,7 @@ export const Home: React.FC = () => {
           minWidth="400px"
         >
           <ActivitiesList />
-          {selectedDate && <CreateActivity />}
+          {selectedDate && isNurse() && <CreateActivity />}
         </Box>
       </Box>
     </>

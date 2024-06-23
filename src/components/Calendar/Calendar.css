@@ -43,3 +43,7 @@
   font-weight: bolder;
   text-decoration: underline;
 }
+
+.react-calendar__navigation__label {
+  font-size: 1rem;
+}

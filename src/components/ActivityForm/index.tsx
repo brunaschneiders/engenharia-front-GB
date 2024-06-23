@@ -84,7 +84,6 @@ export const ActivityForm: React.FC<ActivityFormProps> = ({
               ampm={false}
               value={field.value ? dayjs(field.value) : null}
               onChange={(value) => field.onChange(value?.toDate())}
-              minDate={dayjs().startOf("hour")}
             />
           )}
         />

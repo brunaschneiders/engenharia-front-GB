@@ -13,22 +13,57 @@ import { DeleteOutline } from "@mui/icons-material";
 import useCheckActivity from "../../hooks/useCheckActivity";
 import useDeleteActivity from "../../hooks/useDeleteActivity";
 import { EditActivity } from "../EditActivity";
+import { isNurse } from "../../utils";
 
 type ActivityCardProps = Activity;
 
-export const ActivityCard: React.FC<ActivityCardProps> = (activity) => {
-  const { id, name, description, finished } = activity;
-  const { mutate: checkActivity } = useCheckActivity();
-  const { mutate: deleteActivity } = useDeleteActivity();
+const ActionButtons: React.FC<ActivityCardProps> = (activity) => {
+  const { id } = activity;
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    checkActivity({ id, finished: e.target.checked });
-  };
+  const { mutate: deleteActivity } = useDeleteActivity();
 
   const handleDelete: React.MouseEventHandler<HTMLButtonElement> = (e) => {
     e.stopPropagation();
     deleteActivity(id);
   };
+
+  return (
+    <>
+      <EditActivity activity={activity} />
+
+      <Fab
+        aria-label="add"
+        size="small"
+        sx={{ background: "transparent", boxShadow: "none" }}
+        onClick={handleDelete}
+      >
+        <DeleteOutline />
+      </Fab>
+    </>
+  );
+};
+
+const CheckActivity: React.FC<ActivityCardProps> = (activity) => {
+  const { id, finished } = activity;
+
+  const { mutate: checkActivity } = useCheckActivity();
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    checkActivity({ id, finished: e.target.checked });
+  };
+
+  return (
+    <Checkbox
+      color="primary"
+      checked={finished}
+      onChange={handleChange}
+      onClick={(e) => e.stopPropagation()}
+    />
+  );
+};
+
+export const ActivityCard: React.FC<ActivityCardProps> = (activity) => {
+  const { name, description } = activity;
 
   const time = `${activity.date.getHours()}:${
     activity.date.getMinutes() === 0 ? "00" : activity.date.getMinutes()
@@ -48,12 +83,7 @@ export const ActivityCard: React.FC<ActivityCardProps> = (activity) => {
           alignItems="center"
         >
           <Box fontSize="18px">
-            <Checkbox
-              color="primary"
-              checked={finished}
-              onChange={handleChange}
-              onClick={(e) => e.stopPropagation()}
-            />
+            {isNurse() && <CheckActivity {...activity} />}
             {name}
           </Box>
 
@@ -62,16 +92,7 @@ export const ActivityCard: React.FC<ActivityCardProps> = (activity) => {
               {time}
             </Typography>
 
-            <EditActivity activity={activity} />
-
-            <Fab
-              aria-label="add"
-              size="small"
-              sx={{ background: "transparent", boxShadow: "none" }}
-              onClick={handleDelete}
-            >
-              <DeleteOutline />
-            </Fab>
+            {isNurse() && <ActionButtons {...activity} />}
           </Box>
         </Box>
       </AccordionSummary>
