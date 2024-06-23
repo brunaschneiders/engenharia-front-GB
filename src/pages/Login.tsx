@@ -12,6 +12,7 @@ import {
   USER_TYPE,
 } from "../constants";
 import { useHistory } from "react-router-dom";
+import { useCallback, useLayoutEffect } from "react";
 
 const BUTTON_STYLE: SxProps<Theme> = {
   padding: "20px",
@@ -28,15 +29,22 @@ const BUTTON_STYLE: SxProps<Theme> = {
 
 export const Login = () => {
   const history = useHistory();
+  const isLoggedIn = localStorage.getItem(LOGGED_USER_LOCAL_STORAGE_KEY);
+
+  const goToHome = useCallback(() => history.push(ROUTES.HOME), [history]);
 
   const handleLogin = (user: USER_TYPE) => {
     localStorage.setItem(LOGGED_USER_LOCAL_STORAGE_KEY, user);
-    history.push(ROUTES.HOME);
+    goToHome();
   };
 
   const handleNurseLogin = () => handleLogin(USER_TYPE.NURSE);
 
   const handleFamiliarLogin = () => handleLogin(USER_TYPE.FAMILIAR);
+
+  useLayoutEffect(() => {
+    if (isLoggedIn) goToHome();
+  }, [goToHome, isLoggedIn]);
 
   return (
     <Container
