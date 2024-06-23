@@ -49,7 +49,7 @@ const CheckActivity: React.FC<ActivityCardProps> = (activity) => {
   const { mutate: checkActivity } = useCheckActivity();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    checkActivity({ id, finished: e.target.checked });
+    checkActivity({ id, isFinished: e.target.checked });
   };
 
   return (
