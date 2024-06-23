@@ -58,6 +58,7 @@ const CheckActivity: React.FC<ActivityCardProps> = (activity) => {
       checked={finished}
       onChange={handleChange}
       onClick={(e) => e.stopPropagation()}
+      disabled={!isNurse()}
     />
   );
 };
@@ -83,7 +84,7 @@ export const ActivityCard: React.FC<ActivityCardProps> = (activity) => {
           alignItems="center"
         >
           <Box fontSize="18px">
-            {isNurse() && <CheckActivity {...activity} />}
+            <CheckActivity {...activity} />
             {name}
           </Box>
 
