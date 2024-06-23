@@ -5,7 +5,12 @@ import LocalHospitalIcon from "@mui/icons-material/LocalHospital";
 import PeopleIcon from "@mui/icons-material/People";
 import { SxProps } from "@mui/material";
 import { Theme } from "@mui/system";
-import { LOGGED_USER_LOCAL_STORAGE_KEY, ROUTES, USER_TYPE } from "../constants";
+import {
+  LOGGED_USER_LOCAL_STORAGE_KEY,
+  ROUTES,
+  USER_NAME,
+  USER_TYPE,
+} from "../constants";
 import { useHistory } from "react-router-dom";
 
 const BUTTON_STYLE: SxProps<Theme> = {
@@ -55,7 +60,7 @@ export const Login = () => {
           onClick={handleNurseLogin}
         >
           <LocalHospitalIcon sx={{ marginBottom: "10px" }} />
-          Enfermeiro
+          {USER_NAME[USER_TYPE.NURSE]}
         </Button>
         <Button
           variant="contained"
@@ -63,7 +68,7 @@ export const Login = () => {
           onClick={handleFamiliarLogin}
         >
           <PeopleIcon sx={{ marginBottom: "10px" }} />
-          Familiar
+          {USER_NAME[USER_TYPE.FAMILIAR]}
         </Button>
       </Box>
     </Container>

@@ -9,6 +9,11 @@ export enum USER_TYPE {
   FAMILIAR = "FAMILIAR",
 }
 
+export const USER_NAME = {
+  [USER_TYPE.FAMILIAR]: "Familiar",
+  [USER_TYPE.NURSE]: "Enfermeiro",
+};
+
 export const LOGGED_USER_LOCAL_STORAGE_KEY = "logged-user";
 
 export const ROUTES = {

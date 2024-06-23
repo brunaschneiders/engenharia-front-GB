@@ -12,13 +12,11 @@ const App: React.FC = () => {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <div className="app">
-        <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="pt-br">
-          <CalendarProvider>
-            <Router />
-          </CalendarProvider>
-        </LocalizationProvider>
-      </div>
+      <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="pt-br">
+        <CalendarProvider>
+          <Router />
+        </CalendarProvider>
+      </LocalizationProvider>
     </QueryClientProvider>
   );
 };
