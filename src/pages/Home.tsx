@@ -4,9 +4,8 @@ import { ActivitiesList, CreateActivity, Calendar } from "../components";
 
 import { useCalendar } from "../providers/CalendarProvider/useCalendar";
 import { Box } from "@mui/material";
-import { TopBar } from "../components/Topbar";
 import { isNurse } from "../utils";
-import { Header } from "../components/Header";
+import { Header, TopBar } from "../components";
 
 import { ElderlyProvider } from "../providers/ElderlyProvider";
 import { CalendarProvider } from "../providers/CalendarProvider";
