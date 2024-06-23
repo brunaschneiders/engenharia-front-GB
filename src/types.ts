@@ -5,3 +5,8 @@ export interface Activity {
   date: Date;
   finished: boolean;
 }
+
+export interface Elderly {
+  id: string;
+  name: string;
+}

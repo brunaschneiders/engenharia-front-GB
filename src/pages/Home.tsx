@@ -6,8 +6,12 @@ import { useCalendar } from "../providers/CalendarProvider/useCalendar";
 import { Box } from "@mui/material";
 import { TopBar } from "../components/Topbar";
 import { isNurse } from "../utils";
+import { Header } from "../components/Header";
 
-export const Home: React.FC = () => {
+import { ElderlyProvider } from "../providers/ElderlyProvider";
+import { CalendarProvider } from "../providers/CalendarProvider";
+
+const Body = () => {
   const { selectedDate, isLoadingActivities } = useCalendar();
 
   if (isLoadingActivities) {
@@ -16,14 +20,13 @@ export const Home: React.FC = () => {
 
   return (
     <>
-      <TopBar />
+      <Header />
       <Box
         display="flex"
         gap="24px"
-        sx={{ flexDirection: { xs: "column", md: "row" }, margin: "64px" }}
+        sx={{ flexDirection: { xs: "column", md: "row" } }}
       >
         <Calendar />
-
         <Box
           display="flex"
           flexDirection="column"
@@ -36,5 +39,25 @@ export const Home: React.FC = () => {
         </Box>
       </Box>
     </>
+  );
+};
+
+export const Home: React.FC = () => {
+  return (
+    <ElderlyProvider>
+      <CalendarProvider>
+        <TopBar />
+        <Box
+          sx={{
+            margin: "64px",
+            display: "flex",
+            flexDirection: "column",
+            gap: "32px",
+          }}
+        >
+          <Body />
+        </Box>
+      </CalendarProvider>
+    </ElderlyProvider>
   );
 };

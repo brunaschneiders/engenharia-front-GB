@@ -6,7 +6,7 @@ import React, {
   useState,
 } from "react";
 import { Activity } from "../../types";
-import useFetchActivities from "../../hooks/useGetActivities";
+import useFetchActivities from "../../hooks/useFetchActivities";
 
 type ChildrenType = {
   children: ReactNode;
