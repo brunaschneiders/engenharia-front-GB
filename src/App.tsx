@@ -4,8 +4,8 @@ import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import "dayjs/locale/pt-br";
 import { QueryClient, QueryClientProvider } from "react-query";
-import { Home } from "./pages/Home";
 import { CalendarProvider } from "./providers/CalendarProvider";
+import { Router } from "./Router";
 
 const App: React.FC = () => {
   const queryClient = new QueryClient();
@@ -15,7 +15,7 @@ const App: React.FC = () => {
       <div className="app">
         <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="pt-br">
           <CalendarProvider>
-            <Home />
+            <Router />
           </CalendarProvider>
         </LocalizationProvider>
       </div>

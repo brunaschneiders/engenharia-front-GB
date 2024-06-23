@@ -5,7 +5,8 @@ import LocalHospitalIcon from "@mui/icons-material/LocalHospital";
 import PeopleIcon from "@mui/icons-material/People";
 import { SxProps } from "@mui/material";
 import { Theme } from "@mui/system";
-import { LOGGED_USER_LOCAL_STORAGE_KEY, USER_TYPE } from "../constants";
+import { LOGGED_USER_LOCAL_STORAGE_KEY, ROUTES, USER_TYPE } from "../constants";
+import { useHistory } from "react-router-dom";
 
 const BUTTON_STYLE: SxProps<Theme> = {
   padding: "20px",
@@ -21,8 +22,11 @@ const BUTTON_STYLE: SxProps<Theme> = {
 };
 
 export const Login = () => {
+  const history = useHistory();
+
   const handleLogin = (user: USER_TYPE) => {
     localStorage.setItem(LOGGED_USER_LOCAL_STORAGE_KEY, user);
+    history.push(ROUTES.HOME);
   };
 
   const handleNurseLogin = () => handleLogin(USER_TYPE.NURSE);

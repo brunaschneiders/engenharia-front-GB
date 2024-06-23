@@ -10,3 +10,8 @@ export enum USER_TYPE {
 }
 
 export const LOGGED_USER_LOCAL_STORAGE_KEY = "logged-user";
+
+export const ROUTES = {
+  LOGIN: "/login",
+  HOME: "/home",
+};
