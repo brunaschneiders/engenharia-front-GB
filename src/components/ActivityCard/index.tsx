@@ -5,6 +5,7 @@ import {
   Box,
   Checkbox,
   Fab,
+  Skeleton,
   Typography,
 } from "@mui/material";
 import { Activity } from "../../types";
@@ -46,13 +47,20 @@ const ActionButtons: React.FC<ActivityCardProps> = (activity) => {
 const CheckActivity: React.FC<ActivityCardProps> = (activity) => {
   const { id, finished } = activity;
 
-  const { mutate: checkActivity } = useCheckActivity();
+  const { mutate: checkActivity, isLoading } = useCheckActivity();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     checkActivity({ id, isFinished: e.target.checked });
   };
 
-  return (
+  return isLoading ? (
+    <Skeleton
+      variant="rounded"
+      width={24}
+      height={24}
+      sx={{ display: "inline-block", m: "9px" }}
+    />
+  ) : (
     <Checkbox
       color="primary"
       checked={finished}
@@ -83,7 +91,7 @@ export const ActivityCard: React.FC<ActivityCardProps> = (activity) => {
           justifyContent="space-between"
           alignItems="center"
         >
-          <Box fontSize="18px">
+          <Box fontSize="18px" display="flex" alignItems="center">
             <CheckActivity {...activity} />
             {name}
           </Box>
