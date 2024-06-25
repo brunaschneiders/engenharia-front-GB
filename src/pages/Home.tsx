@@ -24,7 +24,7 @@ const Body = () => {
       <Box
         display="flex"
         gap="24px"
-        sx={{ flexDirection: { xs: "column", md: "row" } }}
+        sx={{ flexDirection: { xs: "column", md: "row" }, mb: "24px" }}
       >
         <Calendar />
         <Box
