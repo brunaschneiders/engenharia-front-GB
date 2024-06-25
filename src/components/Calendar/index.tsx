@@ -1,8 +1,6 @@
 import BaseCalendar from "react-calendar";
 import { useCalendar } from "../../providers/CalendarProvider/useCalendar";
 
-import "./Calendar.css";
-
 export const Calendar = () => {
   const { selectedDate, activities, handleSelectDate } = useCalendar();
 
