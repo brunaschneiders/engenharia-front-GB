@@ -3,19 +3,19 @@ import { Box, Button, Dialog, TextField, Typography } from "@mui/material";
 
 import { DateTimePicker } from "@mui/x-date-pickers";
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
-import { Activity } from "../../types";
+import { Visit } from "../../types";
 import { useCalendar } from "../../providers/CalendarProvider/useCalendar";
 
-type ActivityFormProps = {
+type VisitFormProps = {
   isOpen: boolean;
   isLoading: boolean;
-  defaultValues?: Activity;
+  defaultValues?: Visit;
   mode?: "create" | "edit";
-  onSubmit: SubmitHandler<Activity>;
+  onSubmit: SubmitHandler<Visit>;
   handleClose: () => void;
 };
 
-export const ActivityForm: React.FC<ActivityFormProps> = ({
+export const VisitForm: React.FC<VisitFormProps> = ({
   isOpen,
   isLoading,
   mode = "create",
@@ -29,9 +29,9 @@ export const ActivityForm: React.FC<ActivityFormProps> = ({
     control,
     handleSubmit,
     formState: { isValid },
-  } = useForm<Activity>({
+  } = useForm<Visit>({
     defaultValues: defaultValues || {
-      name: "",
+      visitantName: "",
       description: "",
       date: selectedDate ? selectedDate : undefined,
     },
@@ -49,15 +49,19 @@ export const ActivityForm: React.FC<ActivityFormProps> = ({
         minWidth={600}
       >
         <Typography variant="h3" fontSize="24px" fontWeight="bold" mb="16px">
-          {mode === "create" ? "Cadastrar" : "Editar"} atividade
+          {mode === "create" ? "Cadastrar" : "Editar"} visita
         </Typography>
 
         <Controller
-          name="name"
+          name="visitantName"
           control={control}
           rules={{ required: "Campo obrigatório" }}
           render={({ field }) => (
-            <TextField {...field} label="Nome*" variant="outlined" />
+            <TextField
+              {...field}
+              label="Nome do visitante*"
+              variant="outlined"
+            />
           )}
         />
         <Controller
@@ -67,7 +71,7 @@ export const ActivityForm: React.FC<ActivityFormProps> = ({
           render={({ field }) => (
             <TextField
               {...field}
-              label="Descrição*"
+              label="Informações adicionais*"
               variant="outlined"
               multiline
               rows={4}

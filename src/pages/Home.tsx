@@ -4,11 +4,12 @@ import { ActivitiesList, CreateActivity, Calendar } from "../components";
 
 import { useCalendar } from "../providers/CalendarProvider/useCalendar";
 import { Box } from "@mui/material";
-import { isNurse } from "../utils";
+import { isFamiliar, isNurse } from "../utils";
 import { Header, TopBar } from "../components";
 
 import { ElderlyProvider } from "../providers/ElderlyProvider";
 import { CalendarProvider } from "../providers/CalendarProvider";
+import { CreateVisit } from "../components/CreateVisit";
 
 const Body = () => {
   const { selectedDate, isLoadingActivities } = useCalendar();
@@ -34,7 +35,10 @@ const Body = () => {
           minWidth="400px"
         >
           <ActivitiesList />
+
           {selectedDate && isNurse() && <CreateActivity />}
+
+          {selectedDate && isFamiliar() && <CreateVisit />}
         </Box>
       </Box>
     </>
