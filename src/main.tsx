@@ -52,6 +52,9 @@ const theme = createTheme({
         .react-calendar__tile {
           line-height: 5em;
           font-size: 1.5em;
+          
+
+          
         }
 
         .react-calendar__tile:enabled:hover,
@@ -68,6 +71,21 @@ const theme = createTheme({
         .activity-marked {
           font-weight: bolder;
           text-decoration: underline;
+        }
+
+        .visit-marked {
+         & abbr {
+            border: 2px solid #000;
+            border-radius: 50%;
+            padding: 8px;
+          }
+        }
+
+        .visit-marked:focus {
+         & abbr {
+            border: 2px solid white;
+            border-radius: 50%;
+            padding: 8px;
         }
 
         .react-calendar__navigation__label {

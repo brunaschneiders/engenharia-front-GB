@@ -5,8 +5,10 @@ export const Calendar = () => {
   const { selectedDate, activities, visits, handleSelectDate } = useCalendar();
 
   const getTileClassName = ({ date }: { date: Date }) => {
+    const className = [];
+
     if (selectedDate && date.toDateString() === selectedDate?.toDateString()) {
-      return "selected";
+      className.push("selected");
     }
 
     if (
@@ -14,7 +16,7 @@ export const Calendar = () => {
         (activity) => activity.date?.toDateString() === date?.toDateString()
       )
     ) {
-      return "activity-marked";
+      className.push("activity-marked");
     }
 
     if (
@@ -22,10 +24,10 @@ export const Calendar = () => {
         (visit) => visit?.date?.toDateString() === date?.toDateString()
       )
     ) {
-      return "activity-marked";
+      className.push("visit-marked");
     }
 
-    return "";
+    return className;
   };
 
   return (
