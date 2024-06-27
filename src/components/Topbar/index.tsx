@@ -12,6 +12,8 @@ import {
   USER_TYPE,
 } from "../../constants";
 import { useHistory } from "react-router-dom";
+import { isNurse } from "../../utils";
+import { Notifications } from "../Notifications";
 
 export const TopBar: React.FC = () => {
   const history = useHistory();
@@ -37,6 +39,9 @@ export const TopBar: React.FC = () => {
           <Typography variant="h6" component="div" sx={{ marginRight: 2 }}>
             {userName}
           </Typography>
+
+          {isNurse() && <Notifications />}
+
           <IconButton color="inherit" onClick={handleLogout}>
             <Logout />
           </IconButton>

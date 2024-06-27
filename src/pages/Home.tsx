@@ -12,9 +12,9 @@ import { CalendarProvider } from "../providers/CalendarProvider";
 import { CreateVisit } from "../components/CreateVisit";
 
 const Body = () => {
-  const { selectedDate, isLoadingActivities } = useCalendar();
+  const { selectedDate, isLoading } = useCalendar();
 
-  if (isLoadingActivities) {
+  if (isLoading) {
     return <div>Carregando...</div>;
   }
 

@@ -73,10 +73,6 @@ const theme = createTheme({
         .react-calendar__navigation__label {
           font-size: 1rem;
         }
-
-
-
-
       `,
     },
   },
