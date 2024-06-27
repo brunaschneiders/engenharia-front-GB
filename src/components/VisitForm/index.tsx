@@ -31,7 +31,6 @@ export const VisitForm: React.FC<VisitFormProps> = ({
     formState: { isValid },
   } = useForm<Visit>({
     defaultValues: defaultValues || {
-      visitantName: "",
       description: "",
       date: selectedDate ? selectedDate : undefined,
     },
@@ -52,18 +51,6 @@ export const VisitForm: React.FC<VisitFormProps> = ({
           {mode === "create" ? "Cadastrar" : "Editar"} visita
         </Typography>
 
-        <Controller
-          name="visitantName"
-          control={control}
-          rules={{ required: "Campo obrigatório" }}
-          render={({ field }) => (
-            <TextField
-              {...field}
-              label="Nome do visitante*"
-              variant="outlined"
-            />
-          )}
-        />
         <Controller
           name="description"
           control={control}
