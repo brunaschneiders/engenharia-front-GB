@@ -3,13 +3,14 @@ import "react-calendar/dist/Calendar.css";
 import { ActivitiesList, CreateActivity, Calendar } from "../components";
 
 import { useCalendar } from "../providers/CalendarProvider/useCalendar";
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { isFamiliar, isNurse } from "../utils";
 import { Header, TopBar } from "../components";
 
 import { ElderlyProvider } from "../providers/ElderlyProvider";
 import { CalendarProvider } from "../providers/CalendarProvider";
 import { CreateVisit } from "../components/CreateVisit";
+import { VisitList } from "../components/VisitsList";
 
 const Body = () => {
   const { selectedDate, isLoading } = useCalendar();
@@ -34,9 +35,15 @@ const Body = () => {
           flex="1"
           minWidth="400px"
         >
+          <Typography variant="h5" mb="24px">
+            Data selecionada: {selectedDate?.toLocaleDateString("pt-BR")}{" "}
+          </Typography>
+
           <ActivitiesList />
 
           {selectedDate && isNurse() && <CreateActivity />}
+
+          <VisitList />
 
           {selectedDate && isFamiliar() && <CreateVisit />}
         </Box>

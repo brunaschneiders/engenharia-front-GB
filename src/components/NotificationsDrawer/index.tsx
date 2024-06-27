@@ -66,7 +66,7 @@ const VisitisWaitingApprovalList: React.FC<
   return (
     <List>
       {visitsWaitingApproval.map(
-        ({ id, visitantName, elderlyName, date, description }) => (
+        ({ id, responsableName, elderlyName, date, description }) => (
           <ListItem key={id}>
             <Card
               variant="outlined"
@@ -79,9 +79,9 @@ const VisitisWaitingApprovalList: React.FC<
             >
               <CardContent>
                 <Typography variant="h6">{elderlyName}</Typography>
-                {visitantName ? (
+                {responsableName ? (
                   <Typography color="textSecondary">
-                    <b>Visitante:</b> {visitantName}
+                    <b>Responsável:</b> {responsableName}
                   </Typography>
                 ) : null}
                 <Typography color="textSecondary">

@@ -8,8 +8,8 @@ export const ActivitiesList = () => {
 
   return (
     <Box display="flex" flexDirection="column">
-      <Typography variant="h5" mb="24px">
-        Data selecionada: {selectedDate?.toLocaleDateString("pt-BR")}{" "}
+      <Typography variant="h6" mb="24px" fontWeight="bold">
+        Atividades programadas
       </Typography>
       {selectedDate && currentActivities.length > 0 ? (
         currentActivities.map((activity) => (

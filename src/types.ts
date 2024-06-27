@@ -8,10 +8,10 @@ export interface Activity {
 
 export interface Visit {
   id: string;
-  visitantName?: string;
   description: string;
   date: Date;
   elderlyName: string;
+  responsableName: string;
 }
 
 export interface Elderly {

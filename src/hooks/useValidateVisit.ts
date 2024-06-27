@@ -16,7 +16,10 @@ const useValidateVisit = (): UseMutationResult<
   const queryClient = useQueryClient();
 
   return useMutation(({ id, action }) => validateVisit(id, action), {
-    onSuccess: () => queryClient.invalidateQueries("visits-waiting-approval"),
+    onSuccess: () => {
+      queryClient.invalidateQueries("visits-waiting-approval");
+      queryClient.invalidateQueries("visit");
+    },
   });
 };
 
