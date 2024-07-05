@@ -18,7 +18,7 @@ const useFetchActivities = () => {
   const { selectedElderly } = useElderly();
 
   return useQuery<Activity[], Error>(
-    ["activities"],
+    ["activities", selectedElderly?.id],
     () => fetchActivities(selectedElderly?.id ?? ""),
     { enabled: !!selectedElderly?.id }
   );

@@ -11,6 +11,7 @@ export interface Visit {
   description: string;
   date: Date;
   elderlyName: string;
+  elderlyId: string;
   responsableName: string;
 }
 

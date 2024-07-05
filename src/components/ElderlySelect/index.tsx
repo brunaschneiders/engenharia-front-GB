@@ -7,12 +7,14 @@ import {
   SelectChangeEvent,
 } from "@mui/material";
 import { useElderly } from "../../providers/ElderlyProvider/useElderly";
+import { useQueryClient } from "react-query";
 
 export const ElderlySelect: React.FC = () => {
   const { elderlyList, selectedElderly, handleSelectElderly } = useElderly();
+  const queryClient = useQueryClient();
 
-  console.log({ selectedElderly, name: selectedElderly?.name });
   const handleChange = (event: SelectChangeEvent) => {
+    queryClient.invalidateQueries(["activities", selectedElderly?.id]);
     handleSelectElderly(event.target.value as string);
   };
 

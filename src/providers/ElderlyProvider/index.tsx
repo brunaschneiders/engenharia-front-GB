@@ -8,8 +8,6 @@ import React, {
 } from "react";
 import { Elderly } from "../../types";
 import useFetchElderlyList from "../../hooks/useFetchElderlyList";
-import { isFamiliar } from "../../utils";
-import { MOCKED_ELDERLY } from "../../constants";
 
 type ChildrenType = {
   children: ReactNode;
@@ -40,9 +38,7 @@ export const ElderlyProvider: React.FC<ChildrenType> = ({ children }) => {
   );
 
   useLayoutEffect(() => {
-    if (isFamiliar()) {
-      setSelectedElderly(MOCKED_ELDERLY);
-    } else if (elderlyList.length > 0) {
+    if (elderlyList.length > 0) {
       setSelectedElderly(elderlyList[0]);
     }
   }, [elderlyList]);
